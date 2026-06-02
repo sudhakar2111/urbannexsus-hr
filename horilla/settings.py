@@ -258,3 +258,23 @@ if not DEBUG:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+
+
+
+# Secret key from environment
+SECRET_KEY = os.environ.get('SECRET_KEY', 'your-default-key')
+
+# Debug off in production
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+
+# Allow Render domain
+ALLOWED_HOSTS = ['*']
+
+# Database from environment
+import dj_database_url
+DATABASES = {
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL')
+    )
+}
