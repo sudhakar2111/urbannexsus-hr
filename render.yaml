@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: horilla-hrms
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn horilla.wsgi:application"
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: False
+      - key: DATABASE_URL
+        fromDatabase:
+          name: horilla-db
+          property: connectionString
+
+databases:
+  - name: horilla-db
+    plan: free
